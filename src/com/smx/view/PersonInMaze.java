@@ -38,6 +38,7 @@ public class PersonInMaze extends JTextField {
         super.paintComponent(g);
         int i=getBounds().width;
         int j=getBounds().height;
-        Image image=toolkit.getImage("");
+        Image image=toolkit.getImage("迷宫文件\\people.jpg");
+        g.drawImage(image,0,0,i,j,this);
     }
 }

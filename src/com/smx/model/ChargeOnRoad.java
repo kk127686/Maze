@@ -6,7 +6,7 @@ import com.sun.org.apache.bcel.internal.generic.FADD;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ChageOnRoad extends SetChargeOnRoad{
+public class ChargeOnRoad extends SetChargeOnRoad{
     @Override
     public Point[][] setChargeOnRoad(Point[][] points,int x) {
         ArrayList<Point> pointArrayList=new ArrayList<>();

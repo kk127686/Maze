@@ -89,7 +89,7 @@ public class MazeByRandom implements MazeMaker{
         LinkedList<Point> linkedList=new LinkedList<>();
         Point point1;
         for(int j=0;j<isMountainPoint.size();i++){
-            point1=isMountainPoint.get(i);
+            point1=isMountainPoint.get(j);
             if((point!=point1)&&(!point1.isHaveFlag())&&(point.distanceTo(point1)<i)){
                 i=point.distanceTo(point1);
             }
