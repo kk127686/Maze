@@ -12,13 +12,13 @@ public class MazeByRandom implements MazeMaker{
     public MazeByRandom(int row,int column){
         this.column=column;
         this.row=row;
-        this.isMountainPoint=new LinkedList<>();
-        this.points=new Point[row][column];
+        isMountainPoint=new LinkedList<>();
+        points=new Point[row][column];
         for(int i=0;i<row;i++){
             for(int j=0;j<column;j++){
-                this.points[i][j]=new Point();
-                this.points[i][j].setX(j);
-                this.points[i][j].setY(i);
+                points[i][j]=new Point();
+                points[i][j].setX(j);
+                points[i][j].setY(i);
             }
         }
     }
@@ -26,19 +26,24 @@ public class MazeByRandom implements MazeMaker{
     public Point[][] initMaze() {
         initRoad();
         initNumber();
-        this.points[0][0].setEnter(true);
-        this.points[0][0].setRoad(true);
-        this.points[0][0].setHaveFlag(true);
-        this.points[0][0].setNumber(-1);
-        this.points[0][0].setMountain(true);
-        this.points[row-1][column-1].setOut(true);
-        this.points[row-1][column-1].setNumber(row*column);
-        this.points[row-1][column-1].setMountain(true);
-       isMountainPoint.add(this.points[0][0]);
-       isMountainPoint.add(this.points[row-1][column-1]);
+        //初始化入口参数
+        points[0][0].setEnter(true);
+        points[0][0].setRoad(true);
+        points[0][0].setHaveFlag(true);
+        points[0][0].setNumber(-1);
+        points[0][0].setMountain(true);
+        //初始化出口参数
+        points[row-1][column-1].setOut(true);
+        points[row-1][column-1].setNumber(row*column);
+        points[row-1][column-1].setMountain(true);
+
+        //设置出口和入口都是山
+       isMountainPoint.add(points[0][0]);
+       isMountainPoint.add(points[row-1][column-1]);
+       //随机产生山
        randomSetMountain(row*column/5);
        Point point=points[0][0];
-       while(point!=this.points[row-1][column-1]){
+       while(point!=points[row-1][column-1]){
            point=findMaxHeightMountain(point);
        }
         return points;
@@ -46,9 +51,9 @@ public class MazeByRandom implements MazeMaker{
     private void initRoad(){
         for(int i=0;i<row;i++){
             for(int j=0;j<column;j++){
-                this.points[i][j].setRoad(false);
-                this.points[i][j].setHaveFlag(false);
-                this.points[i][j].setMountain(false);
+                points[i][j].setRoad(false);
+                points[i][j].setHaveFlag(false);
+                points[i][j].setMountain(false);
             }
         }
     }
@@ -58,18 +63,10 @@ public class MazeByRandom implements MazeMaker{
             arrayList.add(i);
         }
         Collections.shuffle(arrayList);
-        for(int j=0;j<arrayList.size();j++) {
-            if (j % column == 0) {
-                System.out.println();
-            } else {
-                System.out.printf("%5d",arrayList.get(j));
-            }
-        }
         Iterator iterator=arrayList.iterator();
-        int j=0;
-        for(int k=9;k<row;k++){
+        for(int k=0;k<row;k++){
             for(int m=0;m<column;m++){
-                this.points[k][m].setNumber((Integer) iterator.next());
+                points[k][m].setNumber((Integer) iterator.next());
             }
         }
     }
@@ -78,24 +75,26 @@ public class MazeByRandom implements MazeMaker{
         Random random=new Random();
         for(int i=0;i<row;i++){
             for(int j=0;j<column;j++){
-                if((this.points[i][j]!=this.points[0][0])&&(this.points[i][j]!=this.points[row-1][column-1])){
-                    linkedList.add(this.points[i][j]);
+                if((points[i][j]!=points[0][0])&&(points[i][j]!=points[row-1][column-1])){
+                    linkedList.add(points[i][j]);
                 }
             }
+
         }
         while(count>0){
             int i=random.nextInt(linkedList.size());
             Point point=(Point) linkedList.remove(i);
             point.setMountain(true);
-            this.isMountainPoint.add(point);
+            isMountainPoint.add(point);
             count--;
         }
     }
+
     Point findMaxHeightMountain(Point point){
         int i=Integer.MAX_VALUE;
         LinkedList<Point> linkedList=new LinkedList<>();
         Point point1;
-        for(int j=0;j<isMountainPoint.size();i++){
+        for(int j=0;j<isMountainPoint.size();j++){
             point1=isMountainPoint.get(j);
             if((point!=point1)&&(!point1.isHaveFlag())&&(point.distanceTo(point1)<i)){
                 i=point.distanceTo(point1);
@@ -103,7 +102,7 @@ public class MazeByRandom implements MazeMaker{
         }
         for(int j=0;j<isMountainPoint.size();j++){
             point1=isMountainPoint.get(j);
-            if((point!=point1)&&(!point1.isHaveFlag())&&(i==point.distanceTo(point1))){
+            if((point!=point1)&& (!point1.isHaveFlag()) && (i==point.distanceTo(point1))){
                 linkedList.add(point1);
             }
         }
@@ -115,7 +114,7 @@ public class MazeByRandom implements MazeMaker{
                 k=n;
             }
         }
-        for(int m=0;m<linkedList.size();m++){
+        for(int m=0; m<linkedList.size(); m++){
             if(linkedList.get(m).getNumber()==k){
                 point2=linkedList.get(m);
                 break;

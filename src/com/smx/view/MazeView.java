@@ -35,6 +35,7 @@ public class MazeView extends JPanel {
         registerListener();
     }
 
+
     private void registerListener() {
         personWalker.addActionListener(handleMove);
         handleMove.setMazePoint(points);
@@ -53,11 +54,11 @@ public class MazeView extends JPanel {
     }
     public void initView()
     {
-        for (int i = 0; i < this.points.length; i++) {
-            for (int j = 0; j < this.points[i].length; j++)
+        for (int i = 0; i < points.length; i++) {
+            for (int j = 0; j < points[i].length; j++)
             {
-                int k = this.points[i][j].getX();
-                int m = this.points[i][j].getY();
+                int k = points[i][j].getX();
+                int m = points[i][j].getY();
 
                 block[i][j] = new Rectangle2D.Double(k, m, width, height);
             }
@@ -87,32 +88,26 @@ public class MazeView extends JPanel {
         BasicStroke basicStroke = new BasicStroke(1.0F, 1, 0);
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[i].length; j++) {
-                if (!points[i][j].isRoad())
-                {
-                    Color localColor = new Color(233, 143, 22);
-                    graphics2D.setColor(localColor);
+                if (!points[i][j].isRoad()) {
+                    graphics2D.setColor(Color.ORANGE);
                     graphics2D.setStroke(basicStroke);
                     graphics2D.draw(block[i][j]);
-                }
-                else
-                {
+                }else{
                     graphics2D.setColor(Color.green);
                     graphics2D.fill(block[i][j]);
                     graphics2D.setColor(Color.blue);
                     graphics2D.setStroke(basicStroke);
                     graphics2D.draw(block[i][j]);
-                    if (points[i][j].isCharge())
-                    {
+                    if(points[i][j].isCharge()) {
                         graphics2D.setColor(Color.blue);
                         graphics2D.fill(block[i][j]);
                         graphics2D.setColor(Color.white);
                         int k = points[i][j].getX();
                         int m = points[i][j].getY();
                         graphics2D.setFont(new Font("", 1, 15));
-                        graphics2D.drawString("" + points[i][j].getChargeMoney(), k + this.width / 8, m + 4 * this.height / 5);
+                        graphics2D.drawString("" + points[i][j].getChargeMoney(), k + width / 8, m + 4 * height / 5);
                     }
-                    if (points[i][j].isOut())
-                    {
+                    if (points[i][j].isOut()){
                         graphics2D.setColor(Color.red);
                         graphics2D.fill(block[i][j]);
                         graphics2D.setColor(Color.white);
@@ -127,17 +122,14 @@ public class MazeView extends JPanel {
         int j = points[0][0].getY();
         i = i * width + leftX;
         j = j * height + leftY;
-        Rectangle2D.Double localDouble = new Rectangle2D.Double(i, j, this.width * this.points[0].length, this.height * this.points.length);
-
+        Rectangle2D.Double localDouble = new Rectangle2D.Double(i, j, width * points[0].length, height * points.length);
         graphics2D.draw(localDouble);
         graphics2D.setColor(Color.black);
         String str1 = "绿色是路,红色是出口，蓝色是收费站（只要经过就收费，包括反复经过）务必记住整个路费，否则无法离开出口";
-
         String str2 = "用鼠标单击走迷宫者，然后按方向键行走";
-        int n = this.handleMove.getBounds().width + this.leftX;
+        int n = handleMove.getBounds().width + leftX;
         graphics2D.setFont(new Font("", 0, 14));
         graphics2D.drawString(str1, n + 2, 2 * this.leftY / 3);
-        graphics2D.drawString(str2, this.leftX, (this.points.length + 1) * this.height + this.leftY);
-
+        graphics2D.drawString(str2, leftX, (points.length + 1) * height + leftY);
     }
 }

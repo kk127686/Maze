@@ -1,8 +1,5 @@
 package com.smx.model;
 
-import com.smx.Maze;
-import com.sun.org.apache.bcel.internal.generic.FADD;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,7 +22,7 @@ public class ChargeOnRoad extends SetChargeOnRoad{
             int i = random.nextInt(pointArrayList.size());
             Point p1 = (Point)pointArrayList.remove(i);
             p1.setCharge(true);
-            int k = random.nextInt(this.MAXMoney) + 1;
+            int k = random.nextInt(MAXMoney) + 1;
             p1.setChargeMoney(k);
             x--;
         }
