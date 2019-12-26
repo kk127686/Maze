@@ -42,7 +42,7 @@ public class SetRoad {
             for(int i2=k;i2<=n;i2++){
                 point_array[i2][m].setRoad(true);
             }
-            if(m<=i1){
+            if(m <= i1){
                 for(int i2=m;i2<=i1;i2++){
                     point_array[n][i2].setRoad(true);
                 }

@@ -1,7 +1,5 @@
 package com.smx.model;
 
-import com.smx.Maze;
-
 public class Point {
     private int x;
     private  int y;
@@ -93,13 +91,13 @@ public class Point {
     public void setChargeMoney(int chargeMoney) {
         this.chargeMoney = chargeMoney;
     }
-    public boolean equals(Point paramPoint){
-        if((paramPoint.getX()==getX())&&(paramPoint.getY()==getY())){
+    public boolean equals(Point point){
+        if((point.getX()==getX())&&(point.getY()==getY())){
             return true;
         }
         return false;
     }
-    public int distanceTo(Point paramPoint){
-        return Math.abs(getX()-paramPoint.getX())+ Math.abs(getY()-paramPoint.getY());
+    public int distanceTo(Point point){
+        return Math.abs(getX()-point.getX())+ Math.abs(getY()-point.getY());
     }
 }

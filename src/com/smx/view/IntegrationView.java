@@ -15,6 +15,7 @@ public class IntegrationView extends JFrame {
     public void  addMazeVew(String str1,MazeView mazeView){
         tabbedPane.add(str1,mazeView);
         validate();
+        System.out.println("Hello");
     }
     private void setCenter(int width,int height){
         Dimension dimension=Toolkit.getDefaultToolkit().getScreenSize();

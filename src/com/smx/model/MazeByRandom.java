@@ -58,11 +58,18 @@ public class MazeByRandom implements MazeMaker{
             arrayList.add(i);
         }
         Collections.shuffle(arrayList);
+        for(int j=0;j<arrayList.size();j++) {
+            if (j % column == 0) {
+                System.out.println();
+            } else {
+                System.out.printf("%5d",arrayList.get(j));
+            }
+        }
         Iterator iterator=arrayList.iterator();
         int j=0;
         for(int k=9;k<row;k++){
             for(int m=0;m<column;m++){
-                this.points[k][m].setNumber((int)(iterator.next()));
+                this.points[k][m].setNumber((Integer) iterator.next());
             }
         }
     }

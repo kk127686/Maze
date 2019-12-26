@@ -14,6 +14,7 @@ public class FixedMazeView extends MazeView implements ActionListener {
     public FixedMazeView(Point[][] points) {
         super(points);
         again=new JButton("重走");
+        add(again);
         again.setSize(80,30);
         again.setLocation(1,leftY);
         again.addActionListener(this);

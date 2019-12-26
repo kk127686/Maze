@@ -3,7 +3,6 @@ package com.smx.view;
 import com.smx.model.ChargeOnRoad;
 import com.smx.model.MazeByRandom;
 import com.smx.model.Point;
-import com.sun.org.apache.regexp.internal.RE;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,20 +20,20 @@ public class RandomMazeView extends MazeView implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        int i = this.points.length;
-        int j = this.points[0].length;
+        int i = points.length;
+        int j = points[0].length;
         MazeByRandom mazeByRandom = new MazeByRandom(i, j);
-        this.points = mazeByRandom.initMaze();
+        points = mazeByRandom.initMaze();
         initPointXY();
         initView();
         ChargeOnRoad chargeOnRoad = new ChargeOnRoad();
-        this.points = chargeOnRoad.setChargeOnRoad(points, 20);
-        this.handleMove.recordTime.stop();
-        this.handleMove.spendTime = 0;
-        this.handleMove.showTime.setText("0");
-        this.handleMove.isLeave = false;
-        this.personWalker.cleanMoney();
+        points = chargeOnRoad.setChargeOnRoad(points, 20);
+        handleMove.recordTime.stop();
+        handleMove.spendTime = 0;
+        handleMove.showTime.setText("0");
+        handleMove.isLeave = false;
+        personWalker.cleanMoney();
         repaint();
-        this.personWalker.requestFocusInWindow();
+        personWalker.requestFocusInWindow();
     }
 }

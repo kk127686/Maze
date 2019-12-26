@@ -11,8 +11,8 @@ public class ChargeOnRoad extends SetChargeOnRoad{
     public Point[][] setChargeOnRoad(Point[][] points,int x) {
         ArrayList<Point> pointArrayList=new ArrayList<>();
         Random random=new Random();
-        for(int i=0;i<points.length;i++){
-            for(int j=0;j<points[i].length;j++){
+        for(int i=0; i<points.length; i++){
+            for(int j=0; j<points[i].length; j++){
                 if((points[i][j].isRoad())&&(!points[i][j].isEnter())&&(!points[i][j].isOut())){
                     pointArrayList.add(points[i][j]);
                 }

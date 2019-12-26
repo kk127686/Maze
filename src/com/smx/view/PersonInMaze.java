@@ -21,16 +21,16 @@ public class PersonInMaze extends JTextField {
         this.point=point;
     }
     public Point getAtMazePoint(){
-        return this.point;
+        return point;
     }
     public void setMoney(int money){
         this.money+=money;
     }
     public void cleanMoney(){
-        this.money=0;
+        money=0;
     }
     public int getMoney(){
-        return this.money;
+        return money;
     }
 
     @Override
