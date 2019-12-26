@@ -26,8 +26,8 @@ public class RandomMazeView extends MazeView implements ActionListener {
         points = mazeByRandom.initMaze();
         initPointXY();
         initView();
-        ChargeOnRoad chargeOnRoad = new ChargeOnRoad();
-        points = chargeOnRoad.setChargeOnRoad(points, 20);
+//        ChargeOnRoad chargeOnRoad = new ChargeOnRoad();
+//        points = chargeOnRoad.setChargeOnRoad(points, 20);
         handleMove.recordTime.stop();
         handleMove.spendTime = 0;
         handleMove.showTime.setText("0");

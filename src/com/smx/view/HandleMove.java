@@ -6,26 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import com.smx.model.Point;
-import javafx.scene.input.KeyCode;
 
 public class HandleMove extends JPanel implements KeyListener, ActionListener {
     Point[][] points;
-    int spendTime=0;
-    Timer recordTime;
-    JTextField showTime;
-    Toolkit toolkit;
-    PersonInMaze person;
-    boolean isLeave=false;
-    int out_i;
-    int out_j;
-
+    public int spendTime=0;
+    public Timer recordTime;
+    public JTextField showTime;
+    public Toolkit toolkit;
+    public PersonInMaze person;
+    public boolean isLeave=false;
     public HandleMove(){
         recordTime=new Timer(1000,this);
         showTime=new JTextField("0",5);
         toolkit=getToolkit();
         showTime.setEditable(false);
-        showTime.setHorizontalAlignment(0);
+        showTime.setHorizontalAlignment(JTextField.CENTER);
         add(new JLabel("计时器:"));
         add(showTime);
         setBackground(Color.cyan);
@@ -44,7 +41,7 @@ public class HandleMove extends JPanel implements KeyListener, ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        spendTime+=1;
+        spendTime++;
         showTime.setText("用时:"+spendTime+"秒");
     }
 
@@ -57,59 +54,60 @@ public class HandleMove extends JPanel implements KeyListener, ActionListener {
     public void keyPressed(KeyEvent e) {
         recordTime.start();
         person=(PersonInMaze) e.getSource();
-        int i=-1;
-        int j=-1;
-        Point point=person.getAtMazePoint();
-        for(int k=0;k<points.length;k++){
-            for(int m=0;m<points[k].length;m++){
-                if(point.equals(points[k][m])){
-                    i=k;
-                    j=m;
+        int m=-1;
+        int n=-1;
+        Point start_point=person.getAtMazePoint();
+        for(int i=0;i<points.length;i++){
+            for(int j=0;j<points[i].length;j++){
+                if(start_point.equals(points[i][j])){
+                    m=i;
+                    n=j;
                     break;
                 }
             }
         }
         if(e.getKeyCode()== KeyEvent.VK_UP){
-            int k=Math.max(i-1,0);
-            if(points[k][j].isRoad()){
+            int k=Math.max(m-1,0);
+            if(points[k][n].isRoad()){
                 toolkit.beep();
-                person.setAtMazePoint(points[k][j]);
-                person.setLocation(points[k][j].getX(),points[k][j].getY());
-                if(points[k][j].isCharge()){
-                    chargeMoney(points[k][j]);
+                person.setAtMazePoint(points[k][n]);
+                person.setLocation(points[k][n].getX(),points[k][n].getY());
+                if(points[k][n].isCharge()){
+                    chargeMoney(points[k][n]);
                 }
             }
         }else if(e.getKeyCode()==KeyEvent.VK_DOWN){
-            int k=Math.max(i+1,points.length-1);
-            if(points[k][j].isRoad()){
+            int k=Math.min(m+1,points.length-1);
+            if(points[k][n].isRoad()){
                 toolkit.beep();
-                person.setAtMazePoint(points[k][j]);
-                person.setLocation(points[k][j].getX(),points[k][j].getY());
-                if(points[k][j].isCharge()){
-                    chargeMoney(points[k][j]);
+                person.setAtMazePoint(points[k][n]);
+                person.setLocation(points[k][n].getX(),points[k][n].getY());
+                if(points[k][n].isCharge()){
+                    chargeMoney(points[k][n]);
                 }
             }
         }else if(e.getKeyCode()==KeyEvent.VK_LEFT){
-            int k=Math.max(j+1,0);
-            if(points[k][j].isRoad()){
+            int k=Math.max(n-1,0);
+            if(points[m][k].isRoad()){
                 toolkit.beep();
-                person.setAtMazePoint(points[k][j]);
-                person.setLocation(points[k][j].getX(),points[k][j].getY());
-                if(points[k][j].isCharge()){
-                    chargeMoney(points[k][j]);
+                person.setAtMazePoint(points[m][k]);
+                person.setLocation(points[m][k].getX(),points[m][k].getY());
+                if(points[m][k].isCharge()){
+                    chargeMoney(points[m][k]);
                 }
             }
         }else if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-            int k=Math.max(j+1,points[0].length-1);
-            if(points[k][j].isRoad()){
+            int k=Math.min(n+1,points[0].length-1);
+            if(points[m][k].isRoad()){
                 toolkit.beep();
-                person.setAtMazePoint(points[k][j]);
-                person.setLocation(points[k][j].getX(),points[k][j].getY());
-                if(points[k][j].isCharge()){
-                    chargeMoney(points[k][j]);
+                person.setAtMazePoint(points[m][k]);
+                person.setLocation(points[m][k].getX(),points[m][k].getY());
+                if(points[m][k].isCharge()){
+                    chargeMoney(points[m][k]);
                 }
             }
         }
+
     }
 
     @Override

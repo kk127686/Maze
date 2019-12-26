@@ -2,53 +2,52 @@ package com.smx.model;
 
 public class SetRoad {
     public static void setRoad(Point p1,Point p2,Point[][] point_array){
-        int i=point_array.length;
-        int j=point_array[0].length;
-        int k=0;
-        int m=0;
-        int n=0;
-        int i1=0;
-        int i3;
-        for(int i2=0;i2<i;i2++){
-            for(i3=0;i3<j;i3++){
-                if(p1==point_array[i2][i3]){
-                    k=i2;
-                    m=i3;
+        int row=point_array.length;
+        int column=point_array[0].length;
+        int m1=0;
+        int n1=0;
+        int m2=0;
+        int n2=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<column;j++){
+                if(p1 == point_array[i][j]){
+                    m1=i;
+                    n1=j;
                 }
             }
         }
-        for(int i2=0;i2<i;i2++){
-            for(i3=0;i3<j;i3++){
-                if(p2==point_array[i2][i3]){
-                    n=i2;
-                    i1=i3;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<column;j++){
+                if(p2==point_array[i][j]){
+                    m2=i;
+                    n2=j;
                 }
             }
         }
-        if(k>n){
-            for(int i2=k;i2>=n;i2--){
-                point_array[i2][m].setRoad(true);
+        if(m1>=m2){
+            for(int i=m1; i>=m2; i--){
+                point_array[i][n1].setRoad(true);
             }
-            if(m<=i1){
-                for(int i2=m;i2<=i1;i2++){
-                    point_array[n][i2].setRoad(true);
+            if(n1<=n2){
+                for(int j=n1; j <= n2; j++){
+                    point_array[m2][j].setRoad(true);
                 }
             }else{
-                for(int i2=m;i2>=i1;i2--){
-                    point_array[n][i2].setRoad(true);
+                for(int j=n1;j >= n2;j--){
+                    point_array[m2][j].setRoad(true);
                 }
             }
-        }else if(k<n){
-            for(int i2=k;i2<=n;i2++){
-                point_array[i2][m].setRoad(true);
+        }else if(m1<m2){
+            for(int i=m1;i<=m2;i++){
+                point_array[i][n1].setRoad(true);
             }
-            if(m <= i1){
-                for(int i2=m;i2<=i1;i2++){
-                    point_array[n][i2].setRoad(true);
+            if(n1 <= n2){
+                for(int j=n1; j<=n2; j++){
+                    point_array[m2][j].setRoad(true);
                 }
             }else{
-                for(int i2=m;i2>=i1;i2--){
-                    point_array[n][i2].setRoad(true);
+                for(int j=n1;j>=n2;j--){
+                    point_array[m2][j].setRoad(true);
                 }
             }
         }

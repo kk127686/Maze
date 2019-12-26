@@ -1,5 +1,5 @@
 package com.smx.model;
 
 public interface MazeMaker {
-    public  Point[][] initMaze();
+    public  abstract Point[][] initMaze();
 }

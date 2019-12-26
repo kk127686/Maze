@@ -13,22 +13,21 @@ public class MazeView extends JPanel {
     int height=22;
     int leftX=80;
     int leftY=50;
-    PersonInMaze personWalker;
-    HandleMove handleMove;
+    public  PersonInMaze personWalker;
+    public HandleMove handleMove;
     public MazeView(Point[][] points){
         this.points=points;
         this.personWalker=new PersonInMaze();
         this.handleMove=new HandleMove();
         initPointXY();
-        handleMove.setMazePoint(points);
+        this.handleMove.setMazePoint(points);
         this.block=new Rectangle2D[points.length][points[0].length];
         setLayout(null);
-        JPanel jPanel=new JPanel();
-        add(handleMove);
-        add(personWalker);
+        this.add(handleMove);
+        this.add(personWalker);
         handleMove.setSize(120,30);
         handleMove.setLocation(leftX,leftY/3);
-        personWalker.setLocation(width,height);
+        personWalker.setSize(width,height);
         personWalker.setAtMazePoint(getEnterPoint(points));
         personWalker.setLocation(getEnterPoint(points).getX(),getEnterPoint(points).getY());
         initView();
@@ -37,30 +36,29 @@ public class MazeView extends JPanel {
 
 
     private void registerListener() {
-        personWalker.addActionListener(handleMove);
+        personWalker.addKeyListener(handleMove);
         handleMove.setMazePoint(points);
     }
 
     public void initPointXY() {
         for(int i=0;i<points.length;i++){
-            for(int j=0;j<points.length;j++){
-                this.points[i][j].setX(j*width+leftX);
-                this.points[i][j].setY(i*height+leftY);
+            for(int j=0;j<points[i].length;j++){
+                points[i][j].setX(j*width+leftX);
+                points[i][j].setY(i*height+leftY);
             }
         }
         personWalker.setAtMazePoint(getEnterPoint(points));
         personWalker.setLocation(getEnterPoint(points).getX(),getEnterPoint(points).getY());
         handleMove.setMazePoint(points);
     }
-    public void initView()
-    {
+
+    public void initView() {
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[i].length; j++)
             {
-                int k = points[i][j].getX();
-                int m = points[i][j].getY();
-
-                block[i][j] = new Rectangle2D.Double(k, m, width, height);
+                int x = points[i][j].getX();
+                int y = points[i][j].getY();
+                block[i][j] = new Rectangle2D.Double(x, y, width, height);
             }
         }
         repaint();
@@ -75,6 +73,7 @@ public class MazeView extends JPanel {
             for(int j=0;j<points[i].length;j++){
                 if(points[i][j].isEnter()){
                     point=points[i][j];
+                    break;
                 }
             }
         }
@@ -85,7 +84,7 @@ public class MazeView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-        BasicStroke basicStroke = new BasicStroke(1.0F, 1, 0);
+        BasicStroke basicStroke = new BasicStroke(1.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[i].length; j++) {
                 if (!points[i][j].isRoad()) {
@@ -104,7 +103,7 @@ public class MazeView extends JPanel {
                         graphics2D.setColor(Color.white);
                         int k = points[i][j].getX();
                         int m = points[i][j].getY();
-                        graphics2D.setFont(new Font("", 1, 15));
+                        graphics2D.setFont(new Font("", Font.BOLD, 15));
                         graphics2D.drawString("" + points[i][j].getChargeMoney(), k + width / 8, m + 4 * height / 5);
                     }
                     if (points[i][j].isOut()){
@@ -112,9 +111,24 @@ public class MazeView extends JPanel {
                         graphics2D.fill(block[i][j]);
                         graphics2D.setColor(Color.white);
                         graphics2D.setFont(new Font("", 1, 10));
-                        graphics2D.drawString("出口", this.points[i][j].getX(), this.points[i][j].getY() + 4 * this.height / 5);
+                        graphics2D.drawString("出口", points[i][j].getX(), points[i][j].getY() + 4 * height / 5);
                     }
+                    if(points[i][j].isEnter()){
+                        graphics2D.setColor(Color.red);
+                        graphics2D.fill(block[i][j]);
+                        graphics2D.setColor(Color.red);
+                        graphics2D.setStroke(basicStroke);
+                        graphics2D.draw(block[i][j]);
+                    }
+//                    if(points[i][j].isMountain()){
+//                        graphics2D.setColor(Color.red);
+//                        graphics2D.fill(block[i][j]);
+//                        graphics2D.setColor(Color.red);
+//                        graphics2D.setStroke(basicStroke);
+//                        graphics2D.draw(block[i][j]);
+//                    }
                 }
+
             }
         }
         graphics2D.setColor(Color.red);

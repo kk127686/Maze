@@ -14,18 +14,17 @@ public class MazeByFile implements MazeMaker {
     @Override
     public Point[][] initMaze() {
         RandomAccessFile randomAccessFile=null;
-        Object object=null;
         try {
             randomAccessFile=new RandomAccessFile(mazeFile,"r");
-            long l1=randomAccessFile.length();
-            long l2=0L;
-            randomAccessFile.seek(l2);
-            while (l2<l1){
+            long length=randomAccessFile.length();
+            long position=0L;
+            randomAccessFile.seek(position);
+            while (position<length){
                 String str1=randomAccessFile.readLine().trim();
                 if(str1.length()>=column){
                     column=str1.length();
                 }
-                l2=randomAccessFile.getFilePointer();
+                position=randomAccessFile.getFilePointer();
                 row+=1;
             }
             points=new Point[row][column];
@@ -36,7 +35,7 @@ public class MazeByFile implements MazeMaker {
                     points[i][j].setY(i);
                 }
             }
-            l2=0L;
+            position=0L;
             randomAccessFile.seek(12);
             for(int i=0;i<row;i++){
                 String str2=randomAccessFile.readLine().trim();

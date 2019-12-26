@@ -1,25 +1,31 @@
 package com.smx.view;
 
+import com.smx.model.ChargeOnRoad;
+import com.smx.model.MazeByRandom;
+import com.smx.model.Point;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class IntegrationView extends JFrame {
 
-    private JMenuBar jMenuBar;
-    private JMenu menu_file,menu_other;
-    private JMenuItem menu_open,menu_change,menu_about,menu_setting;
-
+    public JMenuBar jMenuBar;
+    public JMenu menu_file,menu_other;
+    public JMenuItem menu_open,menu_change,menu_about,menu_setting;
+    Point[][] points;
     JTabbedPane tabbedPane;
+
     public IntegrationView(){
         initMenu();
         setLayout(new BorderLayout());
-        tabbedPane=new JTabbedPane(2);
+        tabbedPane=new JTabbedPane(JTabbedPane.LEFT);
         tabbedPane.validate();
         add(tabbedPane, BorderLayout.CENTER);
         setCenter(1500,720);
-        setDefaultCloseOperation(2);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
+
 
     /**
      * 创建菜单
@@ -46,8 +52,8 @@ public class IntegrationView extends JFrame {
         jMenuBar.add(menu_other);
         setJMenuBar(jMenuBar);
     }
-    public void  addMazeVew(String str1,MazeView mazeView){
-        tabbedPane.add(str1,mazeView);
+    public void  addMazeVew(String cardName,MazeView mazeView){
+        tabbedPane.add(cardName,mazeView);
         validate();
     }
     private void setCenter(int width,int height){
